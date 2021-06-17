@@ -18,7 +18,6 @@ char *read_file(char *filepath)
     buffer = malloc(sizeof(char) * (sb.st_size + 1));
     if (buffer == NULL)
         exit(84);
-    memset(buffer, 0, sizeof(char) * (sb.st_size + 1));
     if (fd < 0) {
         return NULL;
     }
