@@ -7,9 +7,14 @@
 
 SRC	=	src/main.c \
 		src/set_ingredients.c \
-		my_str_to_word_array.c \
 		src/loop.c \
 		src/loop_utils.c \
+		src/loop_utils_bis.c \
+		src/make_food.c \
+		src/check_fridge.c \
+		src/check_fridge_bis.c \
+		my_str_to_word_array.c \
+		free_everything.c \
 
 NAME	=	fridge
 

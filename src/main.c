@@ -8,17 +8,27 @@
 #include "../include/helper.h"
 #include "../include/my.h"
 
-int error_management(int ac)
+void save_fridge_data(int *ingredients_amount)
 {
-    if (ac != 1)
-        return 0;
-    return 1;
+    FILE *f = fopen(".save", "w");
+
+    if (f == NULL)
+        exit(84);
+    fprintf(f, "tomato = %d\n", ingredients_amount[0]);
+    fprintf(f, "dough = %d\n", ingredients_amount[1]);
+    fprintf(f, "onion = %d\n", ingredients_amount[2]);
+    fprintf(f, "pasta = %d\n", ingredients_amount[3]);
+    fprintf(f, "olive = %d\n", ingredients_amount[4]);
+    fprintf(f, "pepper = %d\n", ingredients_amount[5]);
+    fprintf(f, "ham = %d\n", ingredients_amount[6]);
+    fprintf(f, "cheese = %d\n", ingredients_amount[7]);
+    fclose(f);
 }
 
 char **create_ingredient_list(void)
 {
     char **ingredient_list = malloc(sizeof(char *) * 9);
-    
+
     if (ingredient_list == NULL)
         exit(84);
     ingredient_list[0] = strdup("tomato");
@@ -33,22 +43,19 @@ char **create_ingredient_list(void)
     return ingredient_list;
 }
 
-int main(int ac, char **av)
+int main(void)
 {
     char **ingredients = NULL;
     int *ingredients_amount = NULL;
 
-    if (!error_management(ac))
-        return 84;
     ingredients = create_ingredient_list();
     ingredients_amount = malloc(sizeof(int) * 8);
     if (ingredients_amount == NULL)
         return 84;
     set_ingredients_amount(ingredients_amount);
     gameloop(ingredients, ingredients_amount);
-
-    /* for (int i = 0; i < 8; i++)
-        printf("%s has %d\n", ingredients[i], ingredients_amount[i]);
- */
+    save_fridge_data(ingredients_amount);
+    free(ingredients_amount);
+    free_char_table(ingredients);
     return 0;
 }

@@ -47,7 +47,7 @@ void create_ingredient_file(void)
 void check_valid_file(char **parsed_file)
 {
     int size = 0;
-    
+
     for (int i = 0; parsed_file[i] != NULL; i++)
         size++;
     if (size != 8)
@@ -60,14 +60,14 @@ void check_valid_file(char **parsed_file)
     strncmp("pepper = ", parsed_file[5], 9) != 0 || \
     strncmp("ham = ", parsed_file[6], 6) != 0 || \
     strncmp("cheese = ", parsed_file[7], 9) != 0)
-        exit(84);    
+        exit(84);
 }
 
 void retrieve_amounts(char *content, int *ingredients_amount, int i)
 {
     int j = 0;
     char *cur_line = malloc(sizeof(char) * strlen(content));
-    
+
     if (cur_line == NULL)
         exit(84);
     for (int a = 0; content[a] != '\0'; a++) {
@@ -96,4 +96,6 @@ void set_ingredients_amount(int *ingredients_amount)
     check_valid_file(content_array);
     for (int i = 0; i < 8; i++)
         retrieve_amounts(content_array[i], ingredients_amount, i);
+    free_char_table(content_array);
+    free(content);
 }
